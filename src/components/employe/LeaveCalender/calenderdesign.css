@@ -1,0 +1,40 @@
+/* calenderdesign.css */
+
+/* For the calendar container */
+.leave-calendar-container {
+    padding: 1rem;
+    max-width: 100%;
+    margin: auto;
+  }
+  
+  /* Styling the leave status box */
+  .leave-status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #007bff; 
+  }
+  
+  /* Styling for the calendar tile with leave */
+  .leave-taken {
+    background-color: #f1f5f9; /* Light background for days with leave */
+  }
+  
+  /* Adding padding and responsiveness */
+  .calendar-wrapper {
+    max-width: 100%;
+    margin-top: 20px;
+  }
+  
+  /* Make sure calendar adjusts on mobile */
+  @media (max-width: 768px) {
+    .leave-calendar-container {
+      padding: 0.5rem;
+    }
+  
+    .calendar-wrapper {
+      margin: 0;
+    }
+  }
+  
