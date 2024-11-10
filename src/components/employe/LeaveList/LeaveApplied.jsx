@@ -7,13 +7,15 @@ import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 
-
+const ITEMS_PER_PAGE = 3; 
 const LeaveApplication = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [leaves, setLeaves] = useState([]);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const token = localStorage.getItem("accessToken"); 
+  const [expandedDescriptions, setExpandedDescriptions] = useState({});
 
   
   const [formData, setFormData] = useState({
@@ -165,6 +167,19 @@ const LeaveApplication = () => {
     }
   }
   };
+  const handlePageChange = (newPage) => setCurrentPage(newPage);
+
+  const toggleDescription = (id) => {
+    setExpandedDescriptions((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
+  const displayedLeaves = leaves.slice(
+    (currentPage - 1) * ITEMS_PER_PAGE,
+    currentPage * ITEMS_PER_PAGE
+  );
  
 
   return (
@@ -180,13 +195,25 @@ const LeaveApplication = () => {
 
       {/* Leave List */}
       <div className="space-y-4">
-        {leaves.map((leave) => (
+        {displayedLeaves.map((leave) => (
           <div key={leave.id} className="flex justify-between items-center p-4 bg-gray-100 rounded-md shadow-sm">
             <div>
               <p className="text-lg font-medium">{leave.leave_type}</p>
               <p className="text-sm text-gray-500">Start Date : {leave.start_date}</p>
               <p className="text-sm text-gray-500">End Date : {leave.end_date}</p>
-              <p className="text-sm text-gray-500">Description : {leave.reason}</p>
+              Description:
+  {expandedDescriptions[leave.id] 
+    ? leave.reason 
+    : `${leave.reason.split(" ").slice(0, 10).join(" ")}... `}
+  
+  {leave.reason.split(" ").length > 10 && (
+    <button 
+      onClick={() => toggleDescription(leave.id)} 
+      className="text-blue-500 hover:underline"
+    >
+      {expandedDescriptions[leave.id] ? 'Read Less' : 'Read More'}
+    </button>
+  )}
               {leave.document && (
       <a 
         href={`${API_URL}${leave.document}`} 
@@ -220,6 +247,18 @@ const LeaveApplication = () => {
           </div>
         ))}
       </div>
+      <div className="flex justify-center mt-4">
+        {[...Array(Math.ceil(leaves.length / ITEMS_PER_PAGE)).keys()].map((pageNum) => (
+          <button
+            key={pageNum}
+            onClick={() => handlePageChange(pageNum + 1)}
+            className={`px-4 py-2 mx-1 ${currentPage === pageNum + 1 ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}
+          >
+            {pageNum + 1}
+          </button>
+        ))}
+      </div>
+
 
       {/* Apply/Edit Leave Modal */}
       {isModalOpen && (

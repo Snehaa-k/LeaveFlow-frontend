@@ -8,7 +8,7 @@ const Request = () => {
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/managerdash' },
         { label: 'Leave Requests', icon: FaUsers, link: '/requests' },
-        { label: 'Help Desk', icon: FaQuestionCircle, link: '/helpdesk' },
+        { label: 'Help Desk', icon: FaQuestionCircle, link: '/help' },
 
 
       ];
@@ -20,7 +20,7 @@ const Request = () => {
         <Action navItems={navItems} />
 
     </div>
-    <div className='mt-[-700px] ml-[300px] '>
+    <div className='mt-4 md:mt-[-700px] lg:mt-[-700px] sm:mt-0 sm:ml-[300px]'>
         <ManagerLeaveRequests  />
     </div>
     </div>

@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaBars, FaSignOutAlt } from 'react-icons/fa';
 
 const Action = ({ navItems }) => {
+  const  usertoken = localStorage.getItem("accessToken")
+   const   admintoken = localStorage.getItem("accessTokenAdmin")
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -12,7 +14,13 @@ const Action = ({ navItems }) => {
   
   const handleLogout = () => {
     localStorage.clear();
+    if(usertoken){
+
     navigate('/login');
+    }
+    else{
+      navigate('/mlog')
+    }
   };
 
   return (

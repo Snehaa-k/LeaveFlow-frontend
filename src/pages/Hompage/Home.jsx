@@ -80,8 +80,8 @@ const Home = () => {
       <div className="w-full lg:w-1/2 bg-white p-4 lg:p-8 flex flex-col">
         {/* Top Navigation */}
         <div className="flex justify-end space-x-2 lg:space-x-4">
-          <button variant="ghost" className="text-gray-600 text-sm lg:text-base">Help</button>
-          <button variant="ghost" className="text-gray-600 text-sm lg:text-base">Contact</button>
+          {/* <button onClick={()=>navigate('/help')} variant="ghost" className="text-gray-600 text-sm lg:text-base">Help</button> */}
+          {/* <button variant="ghost" className="text-gray-600 text-sm lg:text-base">Contact</button> */}
           <button onClick={handleToggle} className="px-4 py-2 bg-[#4D49B3] text-white rounded">
           {mode === "signup" ? "Login" : "Sign Up"}
           </button>

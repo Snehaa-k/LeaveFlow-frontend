@@ -9,7 +9,7 @@ export const Dashbord = () => {
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/dashbord' },
         { label: 'Attendance', icon: FaCalendarAlt, link: '/lists' },
-        { label: 'Help Desk', icon: FaQuestionCircle, link: '/helpdesk' },
+        { label: 'Help Desk', icon: FaQuestionCircle, link: '/help' },
       ];
   return (
     <div className="flex flex-col lg:flex-row min-h-screen">
@@ -22,7 +22,7 @@ export const Dashbord = () => {
         <h2 className="text-xl md:text-2xl font-semibold text-center text-blue-500 mt-6">
           Report Your Leave
         </h2>
-        <div className="mt-[100px] ml-[180px]">
+        <div className="mt-[100px] sm:mt-4 sm:ml-4 lg:ml-[180px]">
           <LeaveCalendar />
         </div>
       </div>

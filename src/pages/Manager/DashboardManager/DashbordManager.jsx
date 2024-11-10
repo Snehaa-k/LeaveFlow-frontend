@@ -7,7 +7,7 @@ const DashboardManager = () => {
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/managerdash' },
         { label: 'Leave Requests', icon: FaUsers, link: '/requests' },
-        { label: 'Help Desk', icon: FaQuestionCircle, link: '/helpdesk' },
+        { label: 'Help Desk', icon: FaQuestionCircle, link: '/help' },
 
 
     ];
