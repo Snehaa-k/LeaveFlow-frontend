@@ -30,7 +30,7 @@ const LoginPage = () => {
           if(response.data.user.is_verified === true){
           localStorage.setItem('accessToken', response.data.access);
           navigate('/dashbord',{ state: { email: formData.email } });
-          toast.success('Login Successful! Redirecting to manager dashboard.');
+          toast.success('Login Successful! Redirecting to  dashboard.');
 
           }else{
             toast.error('Please Verify');

@@ -9,7 +9,7 @@ export const HelpDesk = () => {
     
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/dashbord' },
-        { label: 'Attendance', icon: FaCalendarAlt, link: '/lists' },
+        { label: 'Leave Apply', icon: FaCalendarAlt, link: '/lists' },
         { label: 'Help Desk', icon: FaQuestionCircle, link: '/help' },
       ];
       const navItemsadmin = [
@@ -27,7 +27,7 @@ export const HelpDesk = () => {
             {usertoken ?  
         <Action navItems={nav}/>:  <Action navItems={navItemsadmin}/>}
         </div>
-        <div className=" p-4 mt-4 sm:mt-0 sm:ml-[300px] overflow-auto max-h-[100vh]">
+        <div className=" p-4 mt-4 sm:mt-[-750px] sm:ml-[300px] overflow-auto max-h-[100vh] ">
                 <HelpGuide />
             </div>
     </div>

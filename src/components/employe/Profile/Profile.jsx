@@ -5,6 +5,7 @@ import { API_URL } from '../../../Apiservice/Apiserverce';
 import { toast } from 'react-toastify';
 const ProfileCard = () => {
   const [profilePic, setProfilePic] = useState("https://via.placeholder.com/128"); 
+  const [profile,setProfile] = useState('')
   const [file, setFile] = useState(null); 
   const [isUploading, setIsUploading] = useState(false);
   const [email, setEmail] = useState(null);
@@ -20,9 +21,9 @@ const ProfileCard = () => {
     if (selectedFile) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfilePic(selectedFile); 
+        setProfilePic(reader.result); 
+        setProfile(reader.result)
         setFile(selectedFile); 
-        
       };
       reader.readAsDataURL(selectedFile); 
     } else {
@@ -35,6 +36,7 @@ const ProfileCard = () => {
 
     const formData = new FormData();
     formData.append('image', file);
+    setIsUploading(true)
 
     try {
       const response = await axios.post(`${API_URL}/profileupload/`, formData, {
@@ -43,7 +45,7 @@ const ProfileCard = () => {
          },
       });
       toast.success("Your Profile Is Updated")
-      setIsUploading(true)
+      setIsUploading(false)
       console.log(response.data.message); 
     } catch (error) {
       console.error(error.response?.data?.error || 'Image upload failed');
@@ -71,21 +73,26 @@ const ProfileCard = () => {
     };
     fetchProfile();
 
-  }, [token,isUploading]);
+  }, [token]);
 
 
   return (
     <div className="bg-white max-w-xs mx-auto md:mx-0 rounded-lg shadow-lg p-6 flex flex-col items-center">
       <div className="relative w-32 h-32 rounded-full overflow-hidden mb-4">
+        {profile && ( <img
+    src={profilePic}
+    alt="Profile"
+    className="w-full h-full object-cover"
+  />) }
       {profilePic && profilePic !== 'https://via.placeholder.com/128' ? (
   <img
-    src={  `${API_URL}${profilePic}`}
+    src={`${API_URL}${profilePic}`}
     alt="Profile"
     className="w-full h-full object-cover"
   />
 ) : (
   <img
-    src="https://via.placeholder.com/128"
+    src={profile}
     alt="Placeholder"
     className="w-full h-full object-cover"
   />

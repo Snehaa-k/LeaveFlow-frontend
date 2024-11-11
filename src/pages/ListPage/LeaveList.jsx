@@ -6,7 +6,7 @@ import { FaTachometerAlt, FaUsers, FaMoneyBillWave, FaCalendarAlt, FaQuestionCir
 export const LeaveList = () => {
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/dashbord' },
-        { label: 'Attendance', icon: FaCalendarAlt, link: '/lists' },
+        { label: 'Leave Apply', icon: FaCalendarAlt, link: '/lists' },
         { label: 'Help Desk', icon: FaQuestionCircle, link: '/help' },
     ];
 

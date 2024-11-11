@@ -12,10 +12,13 @@ const LeaveApplication = () => {
   const navigate = useNavigate()
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [leaves, setLeaves] = useState([]);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const token = localStorage.getItem("accessToken"); 
   const [expandedDescriptions, setExpandedDescriptions] = useState({});
+
+
+  
 
   
   const [formData, setFormData] = useState({
@@ -27,6 +30,17 @@ const LeaveApplication = () => {
   });
   
   const [currentLeave, setCurrentLeave] = useState(null);
+  const validateForm = () => {
+    if (!formData.reason) {
+      setError('Please fill in all fields.');
+
+      return false;
+    }
+
+    
+    setError('');
+    return true;
+  }
 
   const toggleModal = (leave = null) => {
     setIsModalOpen(!isModalOpen);
@@ -99,6 +113,20 @@ const LeaveApplication = () => {
 
   const Handleleave = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      toast.error("must add reson for the leave")
+      return;
+    }
+    const today = new Date().toISOString().split('T')[0]; 
+    if (formData.startDate < today) {
+      toast.error("Start date cannot be in the past.");
+      return;
+    }
+  
+    if (formData.endDate < formData.startDate) {
+      toast.error("End date must be greater than or equal to the start date.");
+      return;
+    }
     const form = new FormData();
     form.append('leave_type', formData.type);
     form.append('start_date', formData.startDate);

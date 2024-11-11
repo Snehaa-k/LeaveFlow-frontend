@@ -68,7 +68,10 @@ const SignUp = () => {
 
       console.log("Signup Successful:", response.data);
     } catch (error) {
+      toast.error("please check your informations")
       console.error("Error during signup:", error);
+      setLoading(false);
+
     }
   };
 
