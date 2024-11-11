@@ -36,7 +36,7 @@ const EmployeeLeaveCalendar = () => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        const response = await axios.get(`${API_URL}/calenderview/`, {
+        const response = await axios.get(`${API_URL}/api/calenderview/`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -48,7 +48,6 @@ const EmployeeLeaveCalendar = () => {
             'Casual Leave': 0,
           };
       
-          // Count the leaves for each leave type
           response.data.users.forEach(user => {
             user.leaves.forEach(leave => {
               if (leaveTypeCounts.hasOwnProperty(leave.leave_type)) {
@@ -57,7 +56,6 @@ const EmployeeLeaveCalendar = () => {
             });
           });
       
-          // Update the leaveData object with the counts
           setLeaveData(prevData => ({
             ...prevData,
             datasets: [
@@ -85,12 +83,10 @@ const EmployeeLeaveCalendar = () => {
             ],
           }));
 
-        // Update the employees state with fetched data
         setEmployees(response.data.users);
         setTotal(response.data.total_employees)
         setPendings(response.data.total_pending_approvals)
 
-        // Map fetched data to events for the calendar
         const allEvents = response.data.users.flatMap((employee) =>
           employee.leaves.map((leave) => ({
             title: `${employee.name} - ${leave.type}`,

@@ -19,6 +19,7 @@ import ManagerLoginPage from './components/Manager/mangeLogin/Managerlogin';
 import Userloginprotected from './pages/UserProtectedRoute';
 import ProtectedRoute from './pages/UserHomeProtectedRoute';
 import AdminprotectedRoute from './pages/AdminProtectedRoute';
+import ErrorPage from './pages/error/ErrorPage';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
       <Route path="/managerdash" element={<AdminprotectedRoute><DashbordManager/></AdminprotectedRoute>} />
       <Route path="/help" element={<HelpDesk/>} />
       <Route path="/mlog" element={<AdminprotectedRoute><ManagerLoginPage/></AdminprotectedRoute>} />
+      <Route path="*" element={<ErrorPage/>} />
 
 
 

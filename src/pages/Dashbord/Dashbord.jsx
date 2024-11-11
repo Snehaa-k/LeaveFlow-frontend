@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Action from '../../components/Common/Actionbar/ActionBar'
 import LeaveCalendar from '../../components/employe/LeaveCalender/Calender'
 import ProfileCard from '../../components/employe/Profile/Profile'
 import { FaTachometerAlt, FaUsers, FaMoneyBillWave, FaCalendarAlt, FaQuestionCircle } from 'react-icons/fa'; 
 
 export const Dashbord = () => {
+    
+ 
 
     const navItems = [
         { label: 'Dashboard', icon: FaTachometerAlt, link: '/dashbord' },

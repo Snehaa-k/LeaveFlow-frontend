@@ -53,7 +53,7 @@ const ManagerLeaveRequests = ({ leaveRequests }) => {
   useEffect(() => {
     const fetchLeaves = async () => {
       try {
-        const response = await axios.get(`${API_URL}/allists/`, { headers: { Authorization: `Bearer ${token}` } });
+        const response = await axios.get(`${API_URL}/api/allists/`, { headers: { Authorization: `Bearer ${token}` } });
         setLeaves(response.data);
       } catch (err) {
         setError('Could not fetch leave applications');
@@ -65,7 +65,7 @@ const ManagerLeaveRequests = ({ leaveRequests }) => {
 
   const HandleAccept = async (id) => {
     try {
-      await axios.post(`${API_URL}/accept/${id}/`, {
+      await axios.post(`${API_URL}/api/accept/${id}/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLeaves(leaves.filter((leave) => leave.id !== id));
@@ -78,7 +78,7 @@ const ManagerLeaveRequests = ({ leaveRequests }) => {
 
   const HandleReject = async (id) => {
     try {
-      await axios.post(`${API_URL}/reject/${id}/`, { reason: rejectionReason }, {
+      await axios.post(`${API_URL}/api/reject/${id}/`, { reason: rejectionReason }, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLeaves(leaves.filter((leave) => leave.id !== id));
