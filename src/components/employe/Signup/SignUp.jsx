@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Calendar, User } from 'lucide-react';
+import { Calendar, TableRowsSplit, User } from 'lucide-react';
 import { API_URL } from '../../../Apiservice/Apiserverce';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { ThreeDots } from 'react-loader-spinner';
+import { toast } from 'react-toastify';
+
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -18,10 +20,42 @@ const SignUp = () => {
   // const handlesign = (email) => {
   //   navigate(`/verification/${email}`);
   // };
+  const [error, setError] = useState('');
+
+  const validateForm = () => {
+    // Check if any field is empty
+    if (!formData.username || !formData.email || !formData.password || !formData.confirmpassword) {
+      setError('Please fill in all fields.');
+      return false;
+    }
+
+    // Check if email is valid
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(formData.email)) {
+      setError('Please enter a valid email address.');
+      return false;
+    }
+
+    // Check if passwords match
+    if (formData.password !== formData.confirmpassword) {
+      setError('Passwords do not match.');
+      return false;
+    }
+
+    // Clear previous errors if form is valid
+    setError('');
+    return true;
+  };
 
   const Handlesignup = async (e) => {
     e.preventDefault(); 
+
     setLoading(true)
+    if (!validateForm()) {
+      setLoading(false);
+      toast.error(`${error}`)
+      return;
+    }
     try {
       const response = await axios.post(`${API_URL}/register/`, {
         username: formData.username, 
