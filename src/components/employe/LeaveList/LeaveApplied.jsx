@@ -127,6 +127,32 @@ const LeaveApplication = () => {
       toast.error("End date must be greater than or equal to the start date.");
       return;
     }
+
+    if (formData.endDate < formData.startDate) {
+      toast.error("End date must be greater than or equal to the start date.");
+      return;
+    }
+
+    const hasDuplicate = leaves.some(leave =>
+      leave.leave_type === formData.type &&
+      leave.start_date === formData.startDate &&
+      leave.end_date === formData.endDate
+    );
+
+    if (hasDuplicate) {
+      toast.error("Duplicate leave request found. Please modify your dates or leave type.");
+      return;
+    }
+
+    const hasOverlap = leaves.some(leave => 
+      new Date(leave.end_date) >= new Date(formData.startDate)
+    );
+
+    if (hasOverlap) {
+      toast.error("New leave start date must be after the end date of your last leave.");
+      return;
+    }
+
     const form = new FormData();
     form.append('leave_type', formData.type);
     form.append('start_date', formData.startDate);

@@ -92,7 +92,7 @@ const ProfileCard = () => {
   />
 ) : (
   <img
-    src={profile}
+    src={profile || "https://via.placeholder.com/128"}
     alt="Placeholder"
     className="w-full h-full object-cover"
   />

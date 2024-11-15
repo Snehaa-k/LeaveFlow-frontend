@@ -88,12 +88,14 @@ const EmployeeLeaveCalendar = () => {
         setPendings(response.data.total_pending_approvals)
 
         const allEvents = response.data.users.flatMap((employee) =>
-          employee.leaves.map((leave) => ({
-            title: `${employee.name} - ${leave.type}`,
-            start: new Date(leave.start),
-            end: new Date(leave.end),
-            allDay: true,
-          }))
+          employee.leaves
+            .filter((leave) => leave.status === 'approved') 
+            .map((leave) => ({
+              title: `${employee.name} - ${leave.type}`,
+              start: new Date(leave.start),
+              end: new Date(leave.end),
+              allDay: true,
+            }))
         );
         setEvents(allEvents);
       } catch (err) {
@@ -129,16 +131,17 @@ const EmployeeLeaveCalendar = () => {
 
         <h3 className="text-lg font-semibold mb-4">Employees</h3>
         <ul>
-          {employees.map((employee) => (
+        {employees.map((employee) => (
             <li
               key={employee.id}
-              className="cursor-pointer text-blue-500 hover:underline mb-2"
+              className={`cursor-pointer text-blue-500 hover:underline mb-2 p-2 rounded ${
+                selectedEmployee?.id === employee.id ? 'bg-blue-100 font-bold' : ''
+              }`}
               onClick={() => handleEmployeeClick(employee)}
             >
               {employee.username}
             </li>
           ))}
-         
         </ul>
       </div>
 
