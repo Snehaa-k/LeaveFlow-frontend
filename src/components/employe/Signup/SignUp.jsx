@@ -61,6 +61,10 @@ const SignUp = () => {
         username: formData.username, 
         email: formData.email,
         password: formData.password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json' 
+        }
       });
       if (response) {
         navigate('/verification',{ state: { email: formData.email } });
