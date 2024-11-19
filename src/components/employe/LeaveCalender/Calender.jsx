@@ -9,6 +9,9 @@ import { API_URL } from '../../../Apiservice/Apiserverce';
 const LeaveCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [leaves, setLeaves] = useState([]);
+
+  console.log(leaves,"leave status");
+  
   const token = localStorage.getItem("accessToken");
 
   const handleDateChange = (newDate) => {
@@ -52,6 +55,7 @@ const LeaveCalendar = () => {
 
     // Check if any leave covers this date
     const leave = leaves.find((leave) => {
+      if (leave.status !== 'accepted') return false; 
       const leaveStartDate = new Date(leave.start_date);
       const leaveEndDate = new Date(leave.end_date);
       leaveStartDate.setHours(0, 0, 0, 0);

@@ -3,7 +3,7 @@ import { Calendar as BigCalendar, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Bar } from 'react-chartjs-2';
-import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'; // Import Chart.js components
+import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js'; 
 import axios from 'axios';
 import { API_URL } from '../../../Apiservice/Apiserverce';
 
@@ -16,6 +16,8 @@ const EmployeeLeaveCalendar = () => {
   const [totalemp,setTotal] = useState(0)
   const [totalpendings,setPendings] = useState(0)
   const [filteredUsers, setFilteredUsers] = useState([]);
+  console.log(employees,"dataaa");
+  
   const [leaveData, setLeaveData] = useState({
     labels: ['Sick Leave', 'Annual Leave', 'Casual Leave'],
     datasets: [
@@ -89,7 +91,7 @@ const EmployeeLeaveCalendar = () => {
 
         const allEvents = response.data.users.flatMap((employee) =>
           employee.leaves
-            .filter((leave) => leave.status === 'approved') 
+            .filter((leave) => leave.status === 'accepted') 
             .map((leave) => ({
               title: `${employee.name} - ${leave.type}`,
               start: new Date(leave.start),
@@ -108,9 +110,14 @@ const EmployeeLeaveCalendar = () => {
   }, [ token]);
 
   const handleEmployeeClick = (employee) => {
+   
+    
     setSelectedEmployee(employee);
-    const employeeEvents = employee.leaves.map((leave) => ({
-      title: ` ${leave.leave_type}`,
+    
+    const employeeEvents = employee.leaves
+    .filter((leave) => leave.status === "accepted")
+    .map((leave) => ({
+      title: `${leave.leave_type}`,
       start: new Date(leave.start_date),
       end: new Date(leave.end_date),
       allDay: true,
